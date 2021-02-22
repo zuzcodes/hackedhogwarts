@@ -1,15 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Hacked Hogwarts Student List</title>
-</head>
-<body>
-    <h1>Hogwarts Student List</h1>
-    <h2>Year 1991</h2>
-<script src="script.js"></script> 
-</body>
+  </head>
+  <body>
+    <header>
+      <input
+        type="search"
+        id="searchfield"
+        name="searchfield"
+        placeholder="Search here..."
+      />
+      <h1>Hogwarts Student Administration</h1>
+      <h2>Student List: Year 1991</h2>
+    </header>
+    <section id="filtering" class="filter">
+      <select name="byhouse" class="byhouse">
+        <option value="all">All Houses</option>
+        <option value="gryffindor">Gryffindor</option>
+        <option value="hufflepuff">Hufflepuff</option>
+        <option value="ravenclaw">Ravenclaw</option>
+        <option value="slytherin">Slytherin</option>
+      </select>
+      <select name="bystatus" class="bystatus">
+        <option value="all">All Students</option>
+        <option value="prefects">Prefects</option>
+        <option value="inquisitors">Inquisitors</option>
+        <option value="expelled">Expelled</option>
+      </select>
+    </section>
+
+    <section id="sorting" class="sort">
+      <button data-action="filter" data-filter="first">First Name</button>
+      <button data-action="filter" data-filter="last">Last Name</button>
+    </section>
+
+    <table id="studentlist">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>House</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- template will be displayed here-->
+      </tbody>
+    </table>
+
+    <template id="student">
+      <tr>
+        <td data-field="firstName">Harry</td>
+        <td data-field="lastName">Potter</td>
+        <td data-field="gender">boy</td>
+        <td data-field="house">Gryffindor</td>
+        <button class="details">Details</button>
+      </tr>
+    </template>
+
+    <section id="counters">
+        <h4>Students Statistics</h4>
+        <p>Total number of Students: <span class="total">0</span></p>
+        <p>Gryffindor: <span class="gryffindor">0</span></p>
+        <p>Hufflepuff: <span class="hufflepuff">0</span></p>
+        <p>Ravenclaw: <span class="ravenclaw">0</span></p>
+        <p>Prefects: <span class="prefects">0</span></p>
+        <p>Inquisitors: <span class="inquisitors">0</span></p>
+        <p>Expelled: <span class="expelled">0</span></p>
+    </section>
+
+    <div class="modal-background hide">
+      <div class="modal-content">
+        <td data-field="image" class="modal-profile">
+          <img class="image" src="" alt="" />
+        </td>
+        <td data-field="firstName" class="modal-first">First Name</td>
+        <td data-field="middleName" class="modal-middle">Middle Name</td>
+        <td data-field="nickName" class="modal-nick">Nick Name</td>
+        <td data-field="lastName" class="modal-last">Last Name</td>
+        <td data-field="gender" class="modal-gender">Gender</td>
+        <td data-field="house" class="modal-house">House</td>
+        <td data-field="image" class="modal-icon"></td><img class="image" src="" alt="" />
+        <button class="prefect">Prefect</button>
+        <button class="inquisitor">Inquisitor</button>
+        <button class="expelled">Expelled</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
