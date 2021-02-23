@@ -18,35 +18,25 @@
       <h1>Hogwarts Student Administration</h1>
       <h2>Student List: Year 1991</h2>
     </header>
-    <section id="filtering" class="filter">
-      <select name="byhouse" class="byhouse">
-        <option value="all">All Houses</option>
-        <option value="gryffindor">Gryffindor</option>
-        <option value="hufflepuff">Hufflepuff</option>
-        <option value="ravenclaw">Ravenclaw</option>
-        <option value="slytherin">Slytherin</option>
-      </select>
-      <select name="bystatus" class="bystatus">
-        <option value="all">All Students</option>
-        <option value="prefects">Prefects</option>
-        <option value="inquisitors">Inquisitors</option>
-        <option value="expelled">Expelled</option>
-      </select>
-    </section>
-
-    <section id="sorting" class="sort">
-      <button data-action="filter" data-filter="first">First Name</button>
-      <button data-action="filter" data-filter="last">Last Name</button>
+    <section id="filtering">
+      <button class="filter" data-action="filter" data-filter="all">All</button>
+      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+      <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+      <button class="filter" data-action="filter" data-filter="prefects">Prefects</button>
+      <button class="filter" data-action="filter" data-filter="inquisitors">Inquisitors</button>
+      <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
     </section>
 
     <table id="studentlist">
       <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Gender</th>
-          <th>House</th>
-          <th>Details</th>
+        <tr id="sorting">
+            <th data-action="sort" data-sort-direction="asc" data-sort="first">First Name</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="last">Last Name</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+            <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -56,11 +46,11 @@
 
     <template id="student">
       <tr>
-        <td data-field="firstName">Harry</td>
-        <td data-field="lastName">Potter</td>
+        <td data-field="first">Harry</td>
+        <td data-field="last">Potter</td>
         <td data-field="gender">boy</td>
         <td data-field="house">Gryffindor</td>
-        <button class="details">Details</button>
+        <td><button>Details</button></td>
       </tr>
     </template>
 
