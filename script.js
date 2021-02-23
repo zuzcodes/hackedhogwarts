@@ -17,9 +17,9 @@ const Student = {
 const allStudents = [];
 
 const settings = {
-    filter: "all",
-    sortBy: "first",
-    sortDir: "asc"
+  filter: "all",
+  sortBy: "first",
+  sortDir: "asc",
 };
 
 // ..... START .....
@@ -27,25 +27,29 @@ const settings = {
 function init() {
   console.log("ready");
 
-  document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
-  document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+  document
+    .querySelectorAll("[data-action='filter']")
+    .forEach((button) => button.addEventListener("click", selectFilter));
+  document
+    .querySelectorAll("[data-action='sort']")
+    .forEach((button) => button.addEventListener("click", selectSort));
 
   loadJSON();
 }
 
 function loadJSON() {
   fetch("https://petlatkea.dk/2021/hogwarts/students.json")
-  .then( response => response.json() )
-  .then( jsonData => {
+    .then((response) => response.json())
+    .then((jsonData) => {
       // when loaded, prepare objects
-      prepareObjects( jsonData );
-  });
+      prepareObjects(jsonData);
+    });
 
   console.log("fetch done");
 }
 
-function prepareObjects( jsonData ) {
-  jsonData.forEach( jsonObject => {
+function prepareObjects(jsonData) {
+  jsonData.forEach((jsonObject) => {
     // create new object with cleaned data
     const student = Object.create(Student);
     const fullName = jsonObject.fullname.trim();
@@ -100,8 +104,8 @@ function prepareObjects( jsonData ) {
     allStudents.unshift(student);
 
     console.log(allStudents);
-});
-  
+  });
+
   displayList(allStudents);
 }
 
@@ -152,75 +156,77 @@ function displaySlytherin(student) {
 // ..... SORTING .....
 
 function selectSort(event) {
-    const sortBy = event.target.dataset.sort;
-    const sortDir = event.target.dataset.sortDirection;
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
 
-    //toggle the direction
-    if (sortDir === "asc") {
-        event.target.dataset.sortDirection = "desc";
-    } else {
-        event.target.dataset.sortDirection = "asc";
-    }
-    console.log(`User selected ${sortBy} - ${sortDir}`)
-    selectSort(sortBy, sortDir);
+  //toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+  console.log(`User selected ${sortBy} - ${sortDir}`);
+  setSort(sortBy, sortDir);
 }
 
 function setSort(sortBy, sortDir) {
-    settings.sortBy = sortBy;
-    settings.sortDir = sortDir;
-    buildList();
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
 }
 
 function sortList(sortedList) {
-    //let sortedList = allStudents;
-    let direction = 1;
-    if (settings.sortDir === "desc") {
-        direction = -1;
+  //let sortedList = allStudents;
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    settings.direction = 1;
+  }
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(firstA, firstB) {
+    if (firstA[settings.sortBy] < firstB[settings.sortBy]) {
+      return -1 * direction;
     } else {
-        settings.direction = 1
+      return 1 * direction;
     }
-
-    sortedList = sortedList.sort(sortByProperty);
-
-    function sortByProperty(firstA, firstB) {
-        if (firstA[settings.sortBy] < firstB[settings.sortBy]) {
-            return -1 * direction
-        } else {
-            return 1 * direction;
-        }
-    }
-    return sortedList;
+  }
+  return sortedList;
 }
 
 // ..... DISPLAY .....
 
 function buildList() {
-    const currentList = filterList(allStudents);
-    const sortedList = sortList(currentList);
-  
-    displayList(currentList); // displayList(sortedList);
+  const currentList = filterList(allStudents);
+  const sortedList = sortList(currentList);
+
+  displayList(currentList); // displayList(sortedList);
 }
 
 function displayList(allStudents) {
   console.log(allStudents);
-  
+
   //clear the list
   document.querySelector("#studentlist tbody").innerHTML = "";
 
   // build a new list
-  allStudents.forEach( displayStudent );
+  allStudents.forEach(displayStudent);
 }
 
 function displayStudent(student) {
-    // create clone
-    const clone = document.querySelector("template#student").content.cloneNode(true);
+  // create clone
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
 
-    // set clone data
-    clone.querySelector("[data-field=first]").textContent = student.first;
-    clone.querySelector("[data-field=last]").textContent = student.last;
-    clone.querySelector("[data-field=gender]").textContent = student.gender;
-    clone.querySelector("[data-field=house]").textContent = student.house;
+  // set clone data
+  clone.querySelector("[data-field=first]").textContent = student.first;
+  clone.querySelector("[data-field=last]").textContent = student.last;
+  clone.querySelector("[data-field=gender]").textContent = student.gender;
+  clone.querySelector("[data-field=house]").textContent = student.house;
 
-    // append clone to list
-    document.querySelector("#studentlist tbody").appendChild(clone);
+  // append clone to list
+  document.querySelector("#studentlist tbody").appendChild(clone);
 }
