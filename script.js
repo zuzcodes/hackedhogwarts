@@ -26,14 +26,30 @@ const settings = {
 
 function init() {
   console.log("ready");
+  activateButtons();
+}
 
+function activateButtons() {
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
+  
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((button) => button.addEventListener("click", selectSort));
 
+  // adding active class to currently displayed filter button
+  // reference: https://www.w3schools.com/howto/howto_js_active_element.asp
+
+  let filtering = document.querySelector("#filtering");
+  let buttons = filtering.getElementsByClassName("btn");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+        let current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+        });
+      }
   loadJSON();
 }
 
@@ -198,6 +214,28 @@ function sortList(sortedList) {
 
 // ..... DISPLAY .....
 
+function showDetails(student) {
+  console.log(student);
+
+  const modal = document.querySelector("#modal-background");    
+  
+  modal.querySelector(".modal-profile").src = "./images/" + student.last.toLowerCase() + "_" + student.first.substring(0, 1).toLowerCase() + ".png";
+  modal.querySelector(".modal-first").textContent = student.first;
+  modal.querySelector(".modal-middle").textContent = student.middle;
+  modal.querySelector(".modal-nick").textContent = student.nick;
+  modal.querySelector(".modal-last").textContent = student.last;
+  modal.querySelector(".modal-gender").textContent = student.gender;
+  modal.querySelector(".modal-house").textContent = student.house;
+
+  modal.querySelector(".close").addEventListener("click", closeDetails);
+  modal.classList.remove("hide");
+
+  function closeDetails() {
+    modal.classList.add("hide");
+    modal.querySelector(".close").removeEventListener("click", closeDetails);
+  }
+}
+
 function buildList() {
   const currentList = filterList(allStudents);
   const sortedList = sortList(currentList);
@@ -221,6 +259,8 @@ function displayStudent(student) {
     .querySelector("template#student")
     .content.cloneNode(true);
 
+  clone.querySelector("[data-field=details]").addEventListener("click", clickDetails);
+
   // set clone data
   clone.querySelector("[data-field=first]").textContent = student.first;
   clone.querySelector("[data-field=last]").textContent = student.last;
@@ -229,4 +269,9 @@ function displayStudent(student) {
 
   // append clone to list
   document.querySelector("#studentlist tbody").appendChild(clone);
+
+  function clickDetails() {
+    console.log("clickStudent");
+    showDetails(student);
+}
 }

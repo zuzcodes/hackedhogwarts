@@ -8,35 +8,65 @@
     <title>Hacked Hogwarts Student List</title>
   </head>
   <body>
-    <header>
-      <input
+    <section id="search">
+      <input 
+        class="text"
         type="search"
         id="searchfield"
         name="searchfield"
         placeholder="Search here..."
       />
-      <h1>Hogwarts Student Administration</h1>
-      <h2>Student List: Year 1991</h2>
+    </section>
+    <header>
+      <img class="icon" src="pngs/castle.png">
+      <h1>HOGWARTS</h1>
+      <img class="divider" src="pngs/lines.png">
+      <h2>Student Administration Office</h2>
+      <hr>
+      <h3>STUDENT LIST: YEAR 1991</h3>
     </header>
+
     <section id="filtering">
-      <button class="filter" data-action="filter" data-filter="all">All</button>
-      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-      <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
-      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-      <button class="filter" data-action="filter" data-filter="prefects">Prefects</button>
-      <button class="filter" data-action="filter" data-filter="inquisitors">Inquisitors</button>
-      <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
+      <button class="btn active" data-action="filter" data-filter="all">All</button>
+      <button class="btn" data-action="filter" data-filter="gryffindor">
+        Gryffindor
+      </button>
+      <button class="btn" data-action="filter" data-filter="hufflepuff">
+        Hufflepuff
+      </button>
+      <button class="btn" data-action="filter" data-filter="ravenclaw">
+        Ravenclaw
+      </button>
+      <button class="btn" data-action="filter" data-filter="slytherin">
+        Slytherin
+      </button>
+      <button class="btn" data-action="filter" data-filter="prefects">
+        Prefects
+      </button>
+      <button class="btn" data-action="filter" data-filter="inquisitors">
+        Inquisitors
+      </button>
+      <button class="btn" data-action="filter" data-filter="expelled">
+        Expelled
+      </button>
     </section>
 
     <table id="studentlist">
       <thead>
         <tr id="sorting">
-            <th data-action="sort" data-sort-direction="asc" data-sort="first">First Name</th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="last">Last Name</th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-            <th>Details</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="first">
+            First Name
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="last">
+            Last Name
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="gender">
+            Gender
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">
+            House
+          </th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -50,36 +80,56 @@
         <td data-field="last">Potter</td>
         <td data-field="gender">boy</td>
         <td data-field="house">Gryffindor</td>
-        <td><button>Details</button></td>
+        <td data-field="details"><button class="btn">Details</button></td>
       </tr>
     </template>
 
-    <section id="counters">
-        <h4>Students Statistics</h4>
-        <p>Total number of Students: <span class="total">0</span></p>
-        <p>Gryffindor: <span class="gryffindor">0</span></p>
-        <p>Hufflepuff: <span class="hufflepuff">0</span></p>
-        <p>Ravenclaw: <span class="ravenclaw">0</span></p>
-        <p>Prefects: <span class="prefects">0</span></p>
-        <p>Inquisitors: <span class="inquisitors">0</span></p>
-        <p>Expelled: <span class="expelled">0</span></p>
-    </section>
+    <table id="counters">
+      <h3>Students Statistics</h3>
+      <tr>
+        <th>Total:</th>
+        <th>Gryffindor:</th>
+        <th>Hufflepuff:</th>
+        <th>Ravenclaw:</th>
+        <th>Slytherin:</th>
+        <th>Prefects:</th>
+        <th>Inquisitors:</th>
+        <th>Expelled:</th>
+      </tr>
+      <tr>
+        <td><span class="total">0</span></td>
+        <td><span class="gryffindor">0</span></td>
+        <td><span class="hufflepuff">0</span></td>
+        <td><span class="ravenclaw">0</span></td>
+        <td><span class="slytherin">0</span></td>
+        <td><span class="prefects">0</span></td>
+        <td><span class="inquisitors">0</span></td>
+        <td><span class="expelled">0</span></td>
+      </tr>
+    </table>
 
-    <div class="modal-background hide">
-      <div class="modal-content">
-        <td data-field="image" class="modal-profile">
-          <img class="image" src="" alt="" />
-        </td>
-        <td data-field="firstName" class="modal-first">First Name</td>
-        <td data-field="middleName" class="modal-middle">Middle Name</td>
-        <td data-field="nickName" class="modal-nick">Nick Name</td>
-        <td data-field="lastName" class="modal-last">Last Name</td>
-        <td data-field="gender" class="modal-gender">Gender</td>
-        <td data-field="house" class="modal-house">House</td>
-        <td data-field="image" class="modal-icon"></td><img class="image" src="" alt="" />
-        <button class="prefect">Prefect</button>
-        <button class="inquisitor">Inquisitor</button>
-        <button class="expelled">Expelled</button>
+    <footer>
+      <hr>
+      <br>
+      <h3> © Hogwarts 2021 </h3>
+      <h3> . . . </h3>
+    </footer>
+
+    <div id="modal-background" class="hide">
+      <div id="modal-content">
+        <h3>STUDENT CARD</h3>
+        <img class="modal-profile" src="" alt="" />
+        <hr>
+        <hr>
+        <img class="modal-crest" src="" alt="" />
+        <p class="modal-first">First Name</p>
+        <p class="modal-middle">Middle Name</p>
+        <p class="modal-nick">Nick Name</p>
+        <p class="modal-last">Last Name</p>
+        <p class="modal-gender">Gender</p>
+        <p class="modal-house">House</p>
+        <p class="modal-blood">Blood Status</p>
+        <button class="close">Close Detail</button>
       </div>
     </div>
     <script src="script.js"></script>
