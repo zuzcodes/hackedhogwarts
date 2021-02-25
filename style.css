@@ -64,6 +64,19 @@ input.text {
   margin-bottom: 2em;
 }
 
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "↓";
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "↑";
+}
+
 .btn {
   background: transparent;
   font-family: 'Roboto Slab', serif;
@@ -94,14 +107,12 @@ table {
 }
 
 table button {
-  max-width: 13vw;
+  max-width: max-content;
 }
 
 thead {
-  text-decoration: underline;
   text-align: left;
   color: #ffff;
-  font-size: 1rem;
   background-color: #d6bd9a;
 }
 

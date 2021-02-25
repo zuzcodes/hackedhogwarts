@@ -12,9 +12,13 @@ const Student = {
   photo: "",
   gender: "",
   house: "",
+  blood: "",
+  prefect: false,
+  inquisitor: false,
+  expelled: false,
 };
 
-const allStudents = [];
+let allStudents = [];
 
 const settings = {
   filter: "all",
@@ -175,6 +179,15 @@ function selectSort(event) {
   const sortBy = event.target.dataset.sort;
   const sortDir = event.target.dataset.sortDirection;
 
+  // find previous sortBy element and remove sortBy
+  const prevElement = document.querySelector(
+    `[data-sort='${settings.sortBy}']`
+  );
+  prevElement.classList.remove("sortby");
+
+  // indicate active sort
+  event.target.classList.add("sortby");
+
   //toggle the direction
   if (sortDir === "asc") {
     event.target.dataset.sortDirection = "desc";
@@ -195,9 +208,9 @@ function sortList(sortedList) {
   //let sortedList = allStudents;
   let direction = 1;
   if (settings.sortDir === "desc") {
-    direction = -1;
+    direction = -1 * direction;
   } else {
-    settings.direction = 1;
+    settings.direction = 1 * direction;
   }
 
   sortedList = sortedList.sort(sortByProperty);
@@ -212,7 +225,11 @@ function sortList(sortedList) {
   return sortedList;
 }
 
-// ..... DISPLAY .....
+// ..... ADD INQUISITOR SQUAD MEMBERS .....
+
+// ..... EXPEL STUDENTS .....
+
+// ..... SHOW DETAILS .....
 
 function showDetails(student) {
   console.log(student);
@@ -259,19 +276,46 @@ function displayStudent(student) {
     .querySelector("template#student")
     .content.cloneNode(true);
 
-  clone.querySelector("[data-field=details]").addEventListener("click", clickDetails);
-
   // set clone data
   clone.querySelector("[data-field=first]").textContent = student.first;
   clone.querySelector("[data-field=last]").textContent = student.last;
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
-  // append clone to list
-  document.querySelector("#studentlist tbody").appendChild(clone);
+  // prefect
+  /*if (student.star === true) {
+    clone.querySelector("[data-field=prefect]").textContent = "★";
+  } else {
+    clone.querySelector("[data-field=prefect]").textContent = "☆";
+  }
+
+  function addPrefect() {
+    if (student.star === true) {
+      student.star = false;
+    } else {
+      student.star = true;
+    }
+    buildList();
+  }*/
+
+  // inquisitor
+  /*if (student.inquisitor === true) {
+    clone.querySelector("[data-field=inquisitor]").textContent = "⬤";
+  } else {
+    clone.querySelector("[data-field=inquisitor]").textContent = "◯";
+  }*/
+
+  clone.querySelector("[data-field=details]").addEventListener("click", clickDetails);
+  //clone.querySelector("[data-field=prefect]").addEventListener("click", clickAddAsPrefect);
+  //clone.querySelector("[data-field=inquisitor]").addEventListener("click", addInquisitor);
+
 
   function clickDetails() {
     console.log("clickStudent");
     showDetails(student);
-}
+  }
+
+  // append clone to list
+  document.querySelector("#studentlist tbody").appendChild(clone);
+
 }

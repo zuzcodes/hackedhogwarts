@@ -17,6 +17,7 @@
         placeholder="Search here..."
       />
     </section>
+
     <header>
       <img class="icon" src="pngs/castle.png">
       <h1>HOGWARTS</h1>
@@ -54,6 +55,8 @@
     <table id="studentlist">
       <thead>
         <tr id="sorting">
+          <th>Prefect</th>
+          <th>Inquisitor</th>
           <th data-action="sort" data-sort-direction="asc" data-sort="first">
             First Name
           </th>
@@ -67,6 +70,7 @@
             House
           </th>
           <th>Details</th>
+          <th>Expel</th>
         </tr>
       </thead>
       <tbody>
@@ -76,11 +80,14 @@
 
     <template id="student">
       <tr>
+        <td data-field="prefect">☆</td>
+        <td data-field="inquisitor">◯</td>
         <td data-field="first">Harry</td>
         <td data-field="last">Potter</td>
         <td data-field="gender">boy</td>
         <td data-field="house">Gryffindor</td>
         <td data-field="details"><button class="btn">Details</button></td>
+        <td data-field="expel"><button class="btn">Expel</button></td>
       </tr>
     </template>
 
@@ -129,6 +136,9 @@
         <p class="modal-gender">Gender</p>
         <p class="modal-house">House</p>
         <p class="modal-blood">Blood Status</p>
+        <p class="modal-prefect">Prefect: </p>
+        <p class="modal-inquisitor">Member of Iquisitor Squad: </p>
+        <p class="modal-expelled">Expelled: </p>
         <button class="close">Close Detail</button>
       </div>
     </div>
