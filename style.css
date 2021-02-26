@@ -153,7 +153,7 @@ tr {
 .dialog {
   display: block;
   position: relative;
-  background-color: #f9f5ee;
+  background-color: #d6bd9a;
   color:#36384a;
   box-shadow: 2px 2px 10px #36384a;
   border-radius: 1em;
@@ -179,12 +179,19 @@ tr {
   text-align: center;
 }
 
+.modal-crest {
+  width: 2em;
+  position:absolute;
+  top: 12%;
+  right:28%;
+}
+
 button.dialogbtn {
   background: transparent;
   font-family: 'Roboto Slab', serif;
   font-weight: bolder;
-  border: 1px solid #d6bd9a;
-  color: #d6bd9a;
+  border: 1px solid #ffff;
+  color: #ffff;
   border-radius: 0.2em;
   width: fit-content;
   height: 2em;
@@ -194,6 +201,6 @@ button.dialogbtn {
 }
 
 button.dialogbtn:hover {
-  background-color: #d6bd9a;
-  color: #ffff;
+  background-color: #ffff;
+  color: #36384a;
 }

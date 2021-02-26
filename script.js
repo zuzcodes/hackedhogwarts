@@ -124,6 +124,7 @@ function prepareObjects(jsonData) {
     student.gender = jsonObject.gender;
     student.house = houseFirstCap;
 
+
     // store new object with cleaned data in the array
     allStudents.unshift(student);
 
@@ -282,6 +283,7 @@ function displayStudent(student) {
   document.querySelector("span.slytherin").textContent = `${allStudents.filter(displaySlytherin).length}`;
   document.querySelector("span.notexpelled").textContent = `${allStudents.length}`;
   document.querySelector("span.expelled").textContent = `${expelledList.length}`;
+  
   // 1. details
   function clickDetails() {
     console.log("clickStudent");
@@ -339,22 +341,47 @@ function showDetails(student) {
   console.log(student);
 
   const modal = document.querySelector("#modal-background");
+  let profile = modal.querySelector(".modal-profile");
+  let theme = modal.querySelector(".modal-content");
 
-  modal.querySelector(".modal-profile").src =
-    "./images/" +
-    student.last.toLowerCase() +
-    "_" +
-    student.first.substring(0, 1).toLowerCase() +
-    ".png";
+  if (student.first == "padma") {
+    profile.src = "images/" + student.last.toLowerCase() + "_" + "padme" + ".png";
+  } else if (student.last == "Patil") {
+    profile.src = "images/" + student.last.toLowerCase() + "_" + student.first.toLowerCase() + ".png";
+  } else if (student.last == "Leanne") {
+    profile.src = "images/" + "li_s" +  ".png";
+  } else if (student.last == "Finch-Fletchley") {
+    profile.src = "images/" + "fletchley" + "_" + student.first.substring(0, 1).toLowerCase() + ".png";
+  } else {
+    profile.src = "images/" + student.last.toLowerCase() + "_" + student.first[0].substring(0, 1).toLowerCase() + ".png";
+  }
+
+
   modal.querySelector(".modal-first").textContent = student.first;
   modal.querySelector(".modal-middle").textContent = student.middle;
   modal.querySelector(".modal-nick").textContent = student.nick;
   modal.querySelector(".modal-last").textContent = student.last;
-  modal.querySelector(".modal-gender").textContent = student.gender;
-  modal.querySelector(".modal-house").textContent = student.house;
+  modal.querySelector(".modal-gender").textContent = `Gender: ${student.gender}`;
+  modal.querySelector(".modal-house").textContent = `Member of the House: ${student.house}`;
+  modal.querySelector(".modal-blood").textContent = `Blood Status: ${student.blood}`;
+  modal.querySelector(".modal-prefect").textContent = `Prefect: ${student.prefect}`;
+  modal.querySelector(".modal-inquisitor").textContent = `Inquisitor Squad: ${student.inquisitor}`;
+  modal.querySelector(".modal-expelled").textContent = `Expelled: ${student.expelled}`;
 
   modal.querySelector(".dialogbtn").addEventListener("click", closeDetails);
   modal.classList.remove("hide");
+
+  modal.querySelector(".modal-crest").src = `pngs/${student.house}.png`;
+
+    if(student.house == "Gryffindor"){
+        theme.style.backgroundColor = "#54323D";
+    } else if(student.house == "Hufflepuff"){
+        theme.style.backgroundColor = "#918E81";
+    } else if(student.house == "Ravenclaw"){
+        theme.style.backgroundColor = "#36384A";
+    } else if(student.house == "Slytherin"){
+        theme.style.backgroundColor = "#707F73";
+    }
 
   function closeDetails() {
     modal.classList.add("hide");
@@ -367,7 +394,6 @@ function showDetails(student) {
 // 2. PREFECT (continue)
 function tryToMakePrefect(selectedStudent) {
   const prefects = allStudents.filter((student) => student.prefect);
-  const numberOfPrefects = prefects.length;
   const other = prefects
     .filter((student) => student.gender === selectedStudent.gender)
     .shift();
@@ -398,8 +424,8 @@ function tryToMakePrefect(selectedStudent) {
     }
     //if remove other
     function clickRemoveOther() {
-      removePrefect(other);
       makePrefect(selectedStudent);
+      removePrefect(other);
       buildList();
       closeDialog();
     }
