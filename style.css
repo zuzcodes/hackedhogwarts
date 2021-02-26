@@ -64,7 +64,6 @@ input.text {
   margin-bottom: 2em;
 }
 
-
 #sorting th.sortby {
   text-decoration: underline;
 }
@@ -139,7 +138,7 @@ tr {
 .hide {
   visibility: hidden;
 }
-#modal-background {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -151,7 +150,22 @@ tr {
   align-content: center;
 }
 
-#modal-content {
+.dialog {
+  display: block;
+  position: relative;
+  background-color: #f9f5ee;
+  color:#36384a;
+  box-shadow: 2px 2px 10px #36384a;
+  border-radius: 1em;
+  padding: 2em;
+  width: 20em;
+  top: 15%;
+  height: max-content;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-content {
   display: block;
   position: relative;
   top: 15%;
@@ -165,22 +179,21 @@ tr {
   text-align: center;
 }
 
-button.close {
+button.dialogbtn {
   background: transparent;
   font-family: 'Roboto Slab', serif;
   font-weight: bolder;
-  border: 1px solid #d7d4d1;
-  color: #d7d4d1;
+  border: 1px solid #d6bd9a;
+  color: #d6bd9a;
   border-radius: 0.2em;
-  width: 7em;
+  width: fit-content;
   height: 2em;
   margin: 0.2em;
   margin-bottom: 15%;
-  transition-duration: 0.4s;
   cursor: pointer;
 }
 
-button.close:hover {
-  background-color: #d7d4d1;
-  color: #36384a
+button.dialogbtn:hover {
+  background-color: #d6bd9a;
+  color: #ffff;
 }

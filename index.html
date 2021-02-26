@@ -9,7 +9,7 @@
   </head>
   <body>
     <section id="search">
-      <input 
+      <input
         class="text"
         type="search"
         id="searchfield"
@@ -19,16 +19,18 @@
     </section>
 
     <header>
-      <img class="icon" src="pngs/castle.png">
+      <img class="icon" src="pngs/castle.png" />
       <h1>HOGWARTS</h1>
-      <img class="divider" src="pngs/lines.png">
+      <img class="divider" src="pngs/lines.png" />
       <h2>Student Administration Office</h2>
-      <hr>
+      <hr />
       <h3>STUDENT LIST: YEAR 1991</h3>
     </header>
 
     <section id="filtering">
-      <button class="btn active" data-action="filter" data-filter="all">All</button>
+      <button class="btn active" data-action="filter" data-filter="all">
+        All
+      </button>
       <button class="btn" data-action="filter" data-filter="gryffindor">
         Gryffindor
       </button>
@@ -40,12 +42,6 @@
       </button>
       <button class="btn" data-action="filter" data-filter="slytherin">
         Slytherin
-      </button>
-      <button class="btn" data-action="filter" data-filter="prefects">
-        Prefects
-      </button>
-      <button class="btn" data-action="filter" data-filter="inquisitors">
-        Inquisitors
       </button>
       <button class="btn" data-action="filter" data-filter="expelled">
         Expelled
@@ -87,7 +83,7 @@
         <td data-field="gender">boy</td>
         <td data-field="house">Gryffindor</td>
         <td data-field="details"><button class="btn">Details</button></td>
-        <td data-field="expel"><button class="btn">Expel</button></td>
+        <td data-field="expelled"><button class="btn">Expel</button></td>
       </tr>
     </template>
 
@@ -99,8 +95,7 @@
         <th>Hufflepuff:</th>
         <th>Ravenclaw:</th>
         <th>Slytherin:</th>
-        <th>Prefects:</th>
-        <th>Inquisitors:</th>
+        <th>Not Expelled:</th>
         <th>Expelled:</th>
       </tr>
       <tr>
@@ -109,39 +104,77 @@
         <td><span class="hufflepuff">0</span></td>
         <td><span class="ravenclaw">0</span></td>
         <td><span class="slytherin">0</span></td>
-        <td><span class="prefects">0</span></td>
-        <td><span class="inquisitors">0</span></td>
+        <td><span class="notexpelled">0</span></td>
         <td><span class="expelled">0</span></td>
       </tr>
     </table>
 
     <footer>
-      <hr>
-      <br>
-      <h3> © Hogwarts 2021 </h3>
-      <h3> . . . </h3>
+      <hr />
+      <br />
+      <h3>© Hogwarts 2021</h3>
+      <h3>. . .</h3>
     </footer>
 
-    <div id="modal-background" class="hide">
-      <div id="modal-content">
+    <div id="modal-background" class="modal hide">
+      <div class="modal-content">
         <h3>STUDENT CARD</h3>
         <img class="modal-profile" src="" alt="" />
-        <hr>
-        <hr>
+        <hr />
+        <hr />
         <img class="modal-crest" src="" alt="" />
-        <p class="modal-first">First Name</p>
-        <p class="modal-middle">Middle Name</p>
-        <p class="modal-nick">Nick Name</p>
-        <p class="modal-last">Last Name</p>
-        <p class="modal-gender">Gender</p>
-        <p class="modal-house">House</p>
-        <p class="modal-blood">Blood Status</p>
-        <p class="modal-prefect">Prefect: </p>
-        <p class="modal-inquisitor">Member of Iquisitor Squad: </p>
-        <p class="modal-expelled">Expelled: </p>
-        <button class="close">Close Detail</button>
+        <p class="modal-first">First Name:</p>
+        <p class="modal-middle">Middle Name:</p>
+        <p class="modal-nick">Nick Name:</p>
+        <p class="modal-last">Last Name:</p>
+        <p class="modal-gender">Gender:</p>
+        <p class="modal-house">House:</p>
+        <p class="modal-blood">Blood Status:</p>
+        <p class="modal-prefect">Prefect:</p>
+        <p class="modal-inquisitor">Member of Iquisitor Squad:</p>
+        <p class="modal-expelled">Expelled:</p>
+        <button class="dialogbtn">Close Detail</button>
       </div>
     </div>
+
+    <div id="remove-dialog" class="modal hide">
+      <div class="dialog">
+        <h1>Warning!</h1>
+        <p>
+          There can be only one student of each gender selected as prefect.
+          There is also a limit of two prefects in total. Do you want to remove
+          the other prefect?
+        </p>
+        <button id="remove" class="dialogbtn">Remove</button>
+        <button id="close1" class="dialogbtn">Close</button>
+      </div>
+    </div>
+
+    <div id="inquisitor-dialog" class="modal hide">
+      <div class="dialog">
+        <h1>Warning!</h1>
+        <p>
+          Selected student does not meet the requirements for becoming the
+          member of the inquisitorial squad. Student has to be either member of
+          a Slytherin house or pure-blooded.
+        </p>
+        <button class="dialogbtn">Close</button>
+      </div>
+    </div>
+
+    <div id="expell-dialog" class="modal hide">
+      <div class="dialog">
+        <h1>Warning!</h1>
+        <p>
+          Expelling the student is final and will remove the student from the
+          list permanently. Do you want to
+          proceed and expell the student?
+        </p>
+        <button id="expell" class="dialogbtn">Expell</button>
+        <button id="close2" class="dialogbtn">Close</button>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

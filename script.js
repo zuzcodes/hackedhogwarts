@@ -19,6 +19,7 @@ const Student = {
 };
 
 let allStudents = [];
+let expelledList = [];
 
 const settings = {
   filter: "all",
@@ -37,23 +38,26 @@ function activateButtons() {
   document
     .querySelectorAll("[data-action='filter']")
     .forEach((button) => button.addEventListener("click", selectFilter));
-  
+
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((button) => button.addEventListener("click", selectSort));
+
+    document
+    .querySelector("[data-filter='expelled']").addEventListener("click", showExpelled);
 
   // adding active class to currently displayed filter button
   // reference: https://www.w3schools.com/howto/howto_js_active_element.asp
 
   let filtering = document.querySelector("#filtering");
   let buttons = filtering.getElementsByClassName("btn");
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].addEventListener("click", function() {
-        let current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-        });
-      }
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+      let current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
   loadJSON();
 }
 
@@ -225,33 +229,7 @@ function sortList(sortedList) {
   return sortedList;
 }
 
-// ..... ADD INQUISITOR SQUAD MEMBERS .....
-
-// ..... EXPEL STUDENTS .....
-
-// ..... SHOW DETAILS .....
-
-function showDetails(student) {
-  console.log(student);
-
-  const modal = document.querySelector("#modal-background");    
-  
-  modal.querySelector(".modal-profile").src = "./images/" + student.last.toLowerCase() + "_" + student.first.substring(0, 1).toLowerCase() + ".png";
-  modal.querySelector(".modal-first").textContent = student.first;
-  modal.querySelector(".modal-middle").textContent = student.middle;
-  modal.querySelector(".modal-nick").textContent = student.nick;
-  modal.querySelector(".modal-last").textContent = student.last;
-  modal.querySelector(".modal-gender").textContent = student.gender;
-  modal.querySelector(".modal-house").textContent = student.house;
-
-  modal.querySelector(".close").addEventListener("click", closeDetails);
-  modal.classList.remove("hide");
-
-  function closeDetails() {
-    modal.classList.add("hide");
-    modal.querySelector(".close").removeEventListener("click", closeDetails);
-  }
-}
+// ..... DISPLAY .....
 
 function buildList() {
   const currentList = filterList(allStudents);
@@ -282,40 +260,224 @@ function displayStudent(student) {
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
-  // prefect
-  /*if (student.star === true) {
-    clone.querySelector("[data-field=prefect]").textContent = "★";
-  } else {
-    clone.querySelector("[data-field=prefect]").textContent = "☆";
-  }
+  // event listeners for table content
+  clone
+    .querySelector("[data-field=details]")
+    .addEventListener("click", clickDetails);
+  clone
+    .querySelector("[data-field=prefect]")
+    .addEventListener("click", clickPrefect);
+  clone
+    .querySelector("[data-field=inquisitor]")
+    .addEventListener("click", clickInquisitor);
+  clone
+    .querySelector("[data-field=expelled]")
+    .addEventListener("click", clickExpel);
 
-  function addPrefect() {
-    if (student.star === true) {
-      student.star = false;
-    } else {
-      student.star = true;
-    }
-    buildList();
-  }*/
-
-  // inquisitor
-  /*if (student.inquisitor === true) {
-    clone.querySelector("[data-field=inquisitor]").textContent = "⬤";
-  } else {
-    clone.querySelector("[data-field=inquisitor]").textContent = "◯";
-  }*/
-
-  clone.querySelector("[data-field=details]").addEventListener("click", clickDetails);
-  //clone.querySelector("[data-field=prefect]").addEventListener("click", clickAddAsPrefect);
-  //clone.querySelector("[data-field=inquisitor]").addEventListener("click", addInquisitor);
-
-
+  // set up counters
+  document.querySelector("span.total").textContent = `${34}`;
+  document.querySelector("span.gryffindor").textContent = `${allStudents.filter(displayGryffindor).length}`;
+  document.querySelector("span.hufflepuff").textContent = `${allStudents.filter(displayHufflepuff).length}`;
+  document.querySelector("span.ravenclaw").textContent = `${allStudents.filter(displayRavenclaw).length}`;
+  document.querySelector("span.slytherin").textContent = `${allStudents.filter(displaySlytherin).length}`;
+  document.querySelector("span.notexpelled").textContent = `${allStudents.length}`;
+  document.querySelector("span.expelled").textContent = `${expelledList.length}`;
+  // 1. details
   function clickDetails() {
     console.log("clickStudent");
     showDetails(student);
   }
 
+  // 2. prefect
+  if (student.prefect === true) {
+    clone.querySelector("[data-field=prefect]").textContent = "★";
+  } else {
+    clone.querySelector("[data-field=prefect]").textContent = "☆";
+  }
+
+  function clickPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakePrefect(student);
+    }
+    buildList();
+  }
+
+  // 3. inquisitor
+  if (student.inquisitor === true) {
+    clone.querySelector("[data-field=inquisitor]").textContent = "⬤";
+  } else {
+    clone.querySelector("[data-field=inquisitor]").textContent = "◯";
+  }
+
+  function clickInquisitor() {
+    if (student.inquisitor === true) {
+      student.inquisitor = false;
+    } else {
+      tryToMakeInquisitor(student);
+    }
+    buildList();
+  }
+
+  // 4. expell
+  function clickExpel() {
+    if (student.expelled === true) {
+      student.expelled = false;
+    } else {
+      tryToExpelStudent(student);
+    }
+    //buildList();
+  }
+
   // append clone to list
   document.querySelector("#studentlist tbody").appendChild(clone);
+}
 
+// 1. DETAILS (continue)
+function showDetails(student) {
+  console.log(student);
+
+  const modal = document.querySelector("#modal-background");
+
+  modal.querySelector(".modal-profile").src =
+    "./images/" +
+    student.last.toLowerCase() +
+    "_" +
+    student.first.substring(0, 1).toLowerCase() +
+    ".png";
+  modal.querySelector(".modal-first").textContent = student.first;
+  modal.querySelector(".modal-middle").textContent = student.middle;
+  modal.querySelector(".modal-nick").textContent = student.nick;
+  modal.querySelector(".modal-last").textContent = student.last;
+  modal.querySelector(".modal-gender").textContent = student.gender;
+  modal.querySelector(".modal-house").textContent = student.house;
+
+  modal.querySelector(".dialogbtn").addEventListener("click", closeDetails);
+  modal.classList.remove("hide");
+
+  function closeDetails() {
+    modal.classList.add("hide");
+    modal
+      .querySelector(".dialogbtn")
+      .removeEventListener("click", closeDetails);
+  }
+}
+
+// 2. PREFECT (continue)
+function tryToMakePrefect(selectedStudent) {
+  const prefects = allStudents.filter((student) => student.prefect);
+  const numberOfPrefects = prefects.length;
+  const other = prefects
+    .filter((student) => student.gender === selectedStudent.gender)
+    .shift();
+
+  //if there is another of the same type
+  if (other !== undefined) {
+    removeOther(other);
+  } else {
+    makePrefect(selectedStudent);
+  }
+
+  function removeOther(other) {
+    //ask user to ignore or remove the other
+    document.querySelector("#remove-dialog").classList.remove("hide");
+    document.querySelector(
+      "#remove-dialog #remove"
+    ).innerHTML = `Remove ${other.first}`;
+    document
+      .querySelector("#remove-dialog #close1")
+      .addEventListener("click", closeDialog);
+    document
+      .querySelector("#remove-dialog #remove")
+      .addEventListener("click", clickRemoveOther);
+
+    //if ignore - do nothing
+    function closeDialog() {
+      document.querySelector("#remove-dialog").classList.add("hide");
+    }
+    //if remove other
+    function clickRemoveOther() {
+      removePrefect(other);
+      makePrefect(selectedStudent);
+      buildList();
+      closeDialog();
+    }
+  }
+
+  function removePrefect(prefectStudent) {
+    prefectStudent.prefect = false;
+  }
+
+  function makePrefect(student) {
+    console.log("This student is prefect now.");
+    student.prefect = true;
+  }
+}
+// 3. INQUISITOR (continue)
+function tryToMakeInquisitor(selectedStudent) {
+  if (selectedStudent.house === "slytherin") {
+    makeInquisitor(selectedStudent);
+  } else {
+    showWarning();
+  }
+
+  function showWarning() {
+    //ask user to ignore or remove the other
+    document.querySelector("#inquisitor-dialog").classList.remove("hide");
+    document
+      .querySelector("#inquisitor-dialog .dialogbtn")
+      .addEventListener("click", closeWarning);
+  }
+
+  function makeInquisitor(student) {
+    console.log("This student is inquisitor now.");
+    student.inquisitor = true;
+  }
+
+  function closeWarning() {
+    document.querySelector("#inquisitor-dialog").classList.add("hide");
+    document
+      .querySelector("#inquisitor-dialog .dialogbtn")
+      .removeEventListener("click", closeWarning);
+  }
+
+  makeInquisitor(selectedStudent);
+  buildList();
+  closeWarning();
+}
+// 4. EXPEL (continue)
+function tryToExpelStudent(student) {
+  let dialog = document.querySelector("#expell-dialog");
+
+  dialog.classList.remove("hide");
+  dialog.querySelector("#expell").addEventListener("click", clickExpelStudent);
+  dialog.querySelector("#close2").addEventListener("click", closeExpellDialog);
+
+  function clickExpelStudent() {
+
+    dialog.classList.add("hide");
+    dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+
+    student.expelled = true;
+    expelledList.push(student);
+    console.log(allStudents.filter((student) => student.expelled === false));
+    allStudents = allStudents.filter((student) => student.expelled === false);
+    
+    displayList(allStudents);
+    closeExpellDialog();
+  }
+
+  function closeExpellDialog() {
+    dialog.classList.add("hide");
+    dialog.querySelector("#expell").removeEventListener("click", clickExpelStudent);
+    dialog.querySelector("#close2").removeEventListener("click", closeExpellDialog);
+  }
+}
+
+function showExpelled() {
+  console.log(expelledList);
+  console.log(allStudents);
+  displayList(expelledList);
 }
