@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Roboto+Slab:wght@100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Roboto+Slab:wght@100&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: small;
   color: #36384a;
   background: #f9f5ee;
@@ -34,8 +34,10 @@ header h2 {
   font-size: 2.5em;
 }
 
-h1, h2, h3{
-  font-family: 'Amita', cursive;
+h1,
+h2,
+h3 {
+  font-family: "Amita", cursive;
   text-align: center;
   font-size: large;
 }
@@ -47,7 +49,7 @@ h1, h2, h3{
 }
 
 input.text {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: bolder;
   color: #d7d4d1;
   background: transparent;
@@ -78,7 +80,7 @@ input.text {
 
 .btn {
   background: transparent;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: bolder;
   border: 1px solid #36384a;
   border-radius: 0.2em;
@@ -88,7 +90,8 @@ input.text {
   cursor: pointer;
 }
 
-.active, .button:hover {
+.active,
+.button:hover {
   background-color: #36384a;
   color: #d7d4d1;
 }
@@ -115,23 +118,24 @@ thead {
   background-color: #d6bd9a;
 }
 
-td, th {
+td,
+th {
   text-align: left;
   padding: 0.5em;
 }
 
 tr {
-  border-top:1px solid #d6bd9a;
+  border-top: 1px solid #d6bd9a;
 }
 
-#counters th{
+#counters th {
   word-wrap: break-word;
   text-align: center;
   color: white;
   background-color: #d6bd9a;
 }
 
-#counters td{
+#counters td {
   text-align: center;
 }
 
@@ -154,7 +158,7 @@ tr {
   display: block;
   position: relative;
   background-color: #d6bd9a;
-  color:#36384a;
+  color: #36384a;
   box-shadow: 2px 2px 10px #36384a;
   border-radius: 1em;
   padding: 2em;
@@ -170,10 +174,10 @@ tr {
   position: relative;
   top: 15%;
   background-color: #36384a;
-  color:#d7d4d1;
+  color: #d7d4d1;
   box-shadow: 2px 2px 10px #36384a;
   border-radius: 1em;
-  width: 20em;
+  width: 27em;
   height: max-content;
   align-items: center;
   text-align: center;
@@ -181,14 +185,14 @@ tr {
 
 .modal-crest {
   width: 2em;
-  position:absolute;
-  top: 12%;
-  right:28%;
+  position: absolute;
+  top: 11%;
+  right: 35%;
 }
 
 button.dialogbtn {
   background: transparent;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: bolder;
   border: 1px solid #ffff;
   color: #ffff;

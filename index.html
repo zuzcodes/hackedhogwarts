@@ -9,13 +9,7 @@
   </head>
   <body>
     <section id="search">
-      <input
-        class="text"
-        type="search"
-        id="searchfield"
-        name="searchfield"
-        placeholder="Search here..."
-      />
+      <input class="text" type="search" id="searchfield" name="searchfield" placeholder="Search here..." />
     </section>
 
     <header>
@@ -28,24 +22,12 @@
     </header>
 
     <section id="filtering">
-      <button class="btn active" data-action="filter" data-filter="all">
-        All
-      </button>
-      <button class="btn" data-action="filter" data-filter="gryffindor">
-        Gryffindor
-      </button>
-      <button class="btn" data-action="filter" data-filter="hufflepuff">
-        Hufflepuff
-      </button>
-      <button class="btn" data-action="filter" data-filter="ravenclaw">
-        Ravenclaw
-      </button>
-      <button class="btn" data-action="filter" data-filter="slytherin">
-        Slytherin
-      </button>
-      <button class="btn" data-action="filter" data-filter="expelled">
-        Expelled
-      </button>
+      <button class="btn active" data-action="filter" data-filter="all">All</button>
+      <button class="btn" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+      <button class="btn" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+      <button class="btn" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+      <button class="btn" data-action="filter" data-filter="slytherin">Slytherin</button>
+      <button class="btn" data-action="filter" data-filter="expelled">Expelled</button>
     </section>
 
     <table id="studentlist">
@@ -53,18 +35,10 @@
         <tr id="sorting">
           <th>Prefect</th>
           <th>Inquisitor</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="first">
-            First Name
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="last">
-            Last Name
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="gender">
-            Gender
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="house">
-            House
-          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="first">First Name</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="last">Last Name</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="gender">Gender</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
           <th>Details</th>
           <th>Expel</th>
         </tr>
@@ -143,9 +117,8 @@
       <div class="dialog">
         <h1>Warning!</h1>
         <p>
-          There can be only one student of each gender selected as prefect.
-          There is also a limit of two prefects in total. Do you want to remove
-          the other prefect?
+          There can be only one student of each gender selected as prefect. There is also a limit of two prefects in
+          total. Do you want to remove the other prefect?
         </p>
         <button id="remove" class="dialogbtn">Remove</button>
         <button id="close1" class="dialogbtn">Close</button>
@@ -156,9 +129,8 @@
       <div class="dialog">
         <h1>Warning!</h1>
         <p>
-          Selected student does not meet the requirements for becoming the
-          member of the inquisitorial squad. Student has to be either member of
-          a Slytherin house or pure-blooded.
+          Selected student does not meet the requirements for becoming the member of the inquisitorial squad. Student
+          has to be either member of a Slytherin house or pure-blooded.
         </p>
         <button class="dialogbtn">Close</button>
       </div>
@@ -168,9 +140,8 @@
       <div class="dialog">
         <h1>Warning!</h1>
         <p>
-          Expelling the student is final and will remove the student from the
-          list permanently. Do you want to
-          proceed and expell the student?
+          Expelling the student is final and will remove the student from the list permanently. Do you want to proceed
+          and expell the student?
         </p>
         <button id="expell" class="dialogbtn">Expell</button>
         <button id="close2" class="dialogbtn">Close</button>
