@@ -346,7 +346,6 @@ function displayStudent(student) {
     }
     //buildList();
   }
-
   // append clone to list
   document.querySelector("#studentlist tbody").appendChild(clone);
 }
