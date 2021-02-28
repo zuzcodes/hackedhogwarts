@@ -261,7 +261,7 @@ function buildList() {
   const currentList = filterList(allStudents);
   const sortedList = sortList(currentList);
 
-  displayList(currentList); // displayList(sortedList);
+  displayList(currentList);
 }
 
 function displayList(allStudents) {
@@ -464,9 +464,9 @@ function checkConditionInquisitor(student) {
   buildList();
 
   if (hacked) {
-    setTimeout(function() {
+    setTimeout(function () {
       student.inquisitor = false;
-      alert ("Inquisitor squad was disabled!");
+      alert("Inquisitor squad was disabled!");
       buildList();
     }, 1000);
   } else {
@@ -491,13 +491,13 @@ function expelStudent(student) {
     console.log(allStudents.filter((student) => student.expelled === false));
     allStudents = allStudents.filter((student) => student.expelled === false);
 
-    if (student.first === "Zuz"){
-      console.log("Zuz here!")
+    if (student.first === "Zuz") {
+      console.log("Zuz here!");
       student.expelled = false;
       expelledList.pop(myself);
       allStudents.push(myself);
-      alert("It is not gonna work! I cannot be expelled.")
-      }
+      alert("It is not gonna work! I cannot be expelled.");
+    }
 
     displayList(allStudents);
     closeExpellDialog();
@@ -516,26 +516,23 @@ function showExpelled() {
   displayList(expelledList);
 }
 
+// ..... HACKING .....
+
 function hackTheSystem() {
   if (hacked) {
     alert("Sytem has alredy been hacked. You cannot hack it twice. 👾 ");
     return;
-  
   } else {
     hacked = true;
-
     addMyself();
     randomizeBlood();
-    alert("Sytem has been hacked. 👾 ")
+    alert("Sytem has been hacked. 👾 ");
   }
 }
 
 function addMyself() {
-
   allStudents.push(myself);
   displayList(allStudents);
-  
-  document.querySelector("span.total").textContent = `${allStudents.length}`;
 }
 
 function randomizeBlood() {
@@ -553,12 +550,4 @@ function randomizeBlood() {
       }
     }
   });
-}
-
-function disableInquisitors(){
-  if (hacked === true) {
-    allStudents.inquisitor = false;
-    buildList();
-    console.log("disabled");
-  }
 }
