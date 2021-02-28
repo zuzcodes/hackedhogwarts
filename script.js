@@ -23,6 +23,10 @@ const myself = {
   last: "👾",
   gender: "girl",
   house: "Gryffindor",
+  blood: "Half-blood",
+  prefect: false,
+  inquisitor: false,
+  expelled: false,
 };
 
 const settings = {
@@ -532,6 +536,7 @@ function hackTheSystem() {
 function addMyself() {
   allStudents.push(myself);
   displayList(allStudents);
+  document.querySelector("span.total").textContent = `${allStudents.length}`;
 }
 
 function randomizeBlood() {
