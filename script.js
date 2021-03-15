@@ -33,6 +33,7 @@ const settings = {
   filter: "all",
   sortBy: "first",
   sortDir: "asc",
+  hacked: false,
 };
 
 let jsonStudents;
@@ -41,13 +42,12 @@ let jsonFamilies;
 let allStudents = [];
 let expelledList = [];
 
-let hacked = false;
-
 // ..... START .....
 
 function init() {
   console.log("ready");
   activateButtons();
+  loadJSONS();
 }
 
 function activateButtons() {
@@ -71,7 +71,6 @@ function activateButtons() {
       this.className += " active";
     });
   }
-  loadJSONS();
 }
 
 async function loadJSONS() {
@@ -263,7 +262,6 @@ function sortList(sortedList) {
 
 function buildList() {
   const currentList = filterList(allStudents);
-  const sortedList = sortList(currentList);
 
   displayList(currentList);
 }
@@ -289,10 +287,10 @@ function displayStudent(student) {
   clone.querySelector("[data-field=house]").textContent = student.house;
 
   // event listeners for table content
-  clone.querySelector("[data-field=details]").addEventListener("click", clickDetails);
-  clone.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
-  clone.querySelector("[data-field=inquisitor]").addEventListener("click", clickInquisitor);
-  clone.querySelector("[data-field=expelled]").addEventListener("click", clickExpel);
+  clone.querySelector("[data-field=details]").addEventListener("click", detailsClicked);
+  clone.querySelector("[data-field=prefect]").addEventListener("click", setPrefect);
+  clone.querySelector("[data-field=inquisitor]").addEventListener("click", setInquisitor);
+  clone.querySelector("[data-field=expelled]").addEventListener("click", expel);
 
   // set up counters
   document.querySelector("span.total").textContent = `${jsonStudents.length}`;
@@ -304,7 +302,7 @@ function displayStudent(student) {
   document.querySelector("span.expelled").textContent = `${expelledList.length}`;
 
   // 1. details
-  function clickDetails() {
+  function detailsClicked() {
     console.log("clickStudent");
     showDetails(student);
   }
@@ -316,7 +314,7 @@ function displayStudent(student) {
     clone.querySelector("[data-field=prefect]").textContent = "☆";
   }
 
-  function clickPrefect() {
+  function setPrefect() {
     if (student.prefect === true) {
       student.prefect = false;
     } else {
@@ -332,7 +330,7 @@ function displayStudent(student) {
     clone.querySelector("[data-field=inquisitor]").textContent = "◯";
   }
 
-  function clickInquisitor() {
+  function setInquisitor() {
     if (student.inquisitor === true) {
       student.inquisitor = false;
     } else {
@@ -342,7 +340,7 @@ function displayStudent(student) {
   }
 
   // 4. expell
-  function clickExpel() {
+  function expel() {
     if (student.expelled === true) {
       student.expelled = false;
     } else {
@@ -423,14 +421,14 @@ function checkConditionPrefect(selectedStudent) {
     document.querySelector("#remove-dialog").classList.remove("hide");
     document.querySelector("#remove-dialog #remove").innerHTML = `Remove ${other.first}`;
     document.querySelector("#remove-dialog #close1").addEventListener("click", closeDialog);
-    document.querySelector("#remove-dialog #remove").addEventListener("click", clickRemoveOther);
+    document.querySelector("#remove-dialog #remove").addEventListener("click", removeOtherPrefect);
 
     //if ignore - do nothing
     function closeDialog() {
       document.querySelector("#remove-dialog").classList.add("hide");
     }
     //if remove other
-    function clickRemoveOther() {
+    function removeOtherPrefect() {
       makePrefect(selectedStudent);
       removePrefect(other);
       buildList();
@@ -522,11 +520,11 @@ function showExpelled() {
 // ..... HACKING .....
 
 function hackTheSystem() {
-  if (hacked) {
+  if (settings.hacked) {
     alert("Sytem has alredy been hacked. You cannot hack it twice. 👾 ");
     return;
   } else {
-    hacked = true;
+    settings.hacked = true;
     addMyself();
     randomizeBlood();
     alert("Sytem has been hacked. 👾 ");
