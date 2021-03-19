@@ -36,18 +36,27 @@ const settings = {
   hacked: false,
 };
 
-let jsonStudents;
-let jsonFamilies;
+const studentsUrl = "https://petlatkea.dk/2021/hogwarts/students.json";
+const familiesUrl = "https://petlatkea.dk/2021/hogwarts/families.json";
 
 let allStudents = [];
 let expelledList = [];
 
 // ..... START .....
 
-function init() {
+async function init() {
   console.log("ready");
   activateButtons();
-  loadJSONS();
+
+  const jsonStudents = await loadJSON(studentsUrl);
+
+    prepareObjects(jsonStudents);
+  
+  const jsonFamilies = await loadJSON(familiesUrl);
+    console.log("LOOK HERE", jsonFamilies)
+    determineBloodStatus(student, jsonFamilies);
+    console.log({jsonFamilies})
+  
 }
 
 function activateButtons() {
@@ -73,12 +82,18 @@ function activateButtons() {
   }
 }
 
-async function loadJSONS() {
+/*async function loadJSONS() {
   const studentsResponse = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
   jsonStudents = await studentsResponse.json();
   const familiesResponse = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
   jsonFamilies = await familiesResponse.json();
   prepareObjects(jsonStudents);
+}*/
+
+async function loadJSON(url) {
+  const response = await fetch(url);
+  const data = response.json();
+  return data;
 }
 
 function prepareObjects(jsonData) {
@@ -127,7 +142,7 @@ function prepareObjects(jsonData) {
     student.house = houseFirstCap;
 
     // BLOOD STATUS
-    student.blood = determineBloodStatus(student);
+    //student.blood = determineBloodStatus(student);
 
     // store new object with cleaned data in the array
     allStudents.unshift(student);
@@ -138,7 +153,7 @@ function prepareObjects(jsonData) {
   displayList(allStudents);
 }
 
-function determineBloodStatus(student) {
+function determineBloodStatus(student, jsonFamilies) {
   if (jsonFamilies.half.indexOf(student.last) != -1) {
     return "Half-blood";
   } else if (jsonFamilies.pure.indexOf(student.last) != -1) {
