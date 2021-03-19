@@ -45,18 +45,17 @@ let expelledList = [];
 // ..... START .....
 
 async function init() {
-  console.log("ready");
-  activateButtons();
+  console.log("Ready");
 
   const jsonStudents = await loadJSON(studentsUrl);
-
-    prepareObjects(jsonStudents);
-  
   const jsonFamilies = await loadJSON(familiesUrl);
-    console.log("LOOK HERE", jsonFamilies)
-    determineBloodStatus(student, jsonFamilies);
-    console.log({jsonFamilies})
   
+  //setting up counter - total number of students
+  document.querySelector("span.total").textContent = `${jsonStudents.length}`;
+
+  activateButtons();
+  prepareObjects(jsonStudents);
+  determineBloodStatus(student, jsonFamilies);
 }
 
 function activateButtons() {
@@ -308,7 +307,6 @@ function displayStudent(student) {
   clone.querySelector("[data-field=expelled]").addEventListener("click", expel);
 
   // set up counters
-  document.querySelector("span.total").textContent = `${jsonStudents.length}`;
   document.querySelector("span.gryffindor").textContent = `${allStudents.filter(displayGryffindor).length}`;
   document.querySelector("span.hufflepuff").textContent = `${allStudents.filter(displayHufflepuff).length}`;
   document.querySelector("span.ravenclaw").textContent = `${allStudents.filter(displayRavenclaw).length}`;
