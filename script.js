@@ -49,7 +49,7 @@ async function init() {
 
   const jsonStudents = await loadJSON(studentsUrl);
   const jsonFamilies = await loadJSON(familiesUrl);
-  
+
   //setting up counter - total number of students
   document.querySelector("span.total").textContent = `${jsonStudents.length}`;
 
@@ -80,14 +80,6 @@ function activateButtons() {
     });
   }
 }
-
-/*async function loadJSONS() {
-  const studentsResponse = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
-  jsonStudents = await studentsResponse.json();
-  const familiesResponse = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
-  jsonFamilies = await familiesResponse.json();
-  prepareObjects(jsonStudents);
-}*/
 
 async function loadJSON(url) {
   const response = await fetch(url);
